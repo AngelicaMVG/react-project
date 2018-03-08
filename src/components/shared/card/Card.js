@@ -5,7 +5,7 @@ import { colors } from '../colors'
 const Card = glamorous.div(
   {
     borderRadius: 4,
-    padding: 20
+    padding: 20,
   },
   ({ color }) => ({
     backgroundColor: colors[color] || colors.white
