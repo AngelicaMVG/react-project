@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Login from '../login/Login'
-import { colors } from '../shared/colors'
-import { Nav } from '../shared'
-import StudentList from '../students/StudentList'
-import StudentDetail from '../students/StudentDetail'
+import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Login from "../login/Login";
+// import { colors } from '../shared/colors'
+import { Nav } from "../shared";
+import StudentList from "../students/StudentList";
+import StudentDetail from "../students/StudentDetail";
 
 class App extends Component {
   render() {
@@ -19,8 +19,8 @@ class App extends Component {
           </Switch>
         </Router>
       </Fragment>
-    )
+    );
   }
 }
 
-export default App
+export default App;

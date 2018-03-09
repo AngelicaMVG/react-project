@@ -1,10 +1,10 @@
-import React from 'react'
-import LoginForm from './LoginForm'
+import React from "react";
+import LoginForm from "./LoginForm";
 
-export default ({ }) => {
+export default () => {
   return (
     <div>
       <LoginForm />
     </div>
-  )
-}
+  );
+};

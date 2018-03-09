@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import req from "superagent";
-import TableExampleSimple from "../shared/table/index.js";
+// import TableExampleSimple from "../shared/table/index.js";
 import glamorous from "glamorous";
 import { colors } from "../shared/colors";
+
+const weekdays = {
+  1: "Lunes",
+  2: "Martes",
+  3: "Miercoles",
+  4: "Jueves",
+  5: "Viernes"
+};
 
 const Input = glamorous.input({
   marginTop: "20px",
@@ -36,7 +44,8 @@ const CardDetail = glamorous.div(
 class StudentDetail extends Component {
   state = {
     student: {},
-    status: []
+    homework: {},
+    attendance: {}
   };
   componentDidMount() {
     req
@@ -44,14 +53,30 @@ class StudentDetail extends Component {
       .then(res => {
         this.setState({
           ...this.state,
-          student: { ...res.body },
-          status: [...res.body.status]
+          student: { ...res.body }
         });
       });
   }
 
+  toggleHomework = e => {
+    this.setState({
+      ...this.state,
+      homework: { ...this.state.homework, [e.target.name]: e.target.checked }
+    });
+  };
+
+  toggleAttendance = e => {
+    this.setState({
+      ...this.state,
+      attendance: {
+        ...this.state.attendance,
+        [e.target.name]: e.target.checked
+      }
+    });
+  };
+
   render() {
-    var status = this.state.student.status;
+    console.log(this.state);
     return (
       <div>
         <CardDetail>
@@ -76,7 +101,55 @@ class StudentDetail extends Component {
             </div>
           </div>
         </CardDetail>
-        <TableExampleSimple students={status} />
+        {this.state.student.id &&
+          this.state.student.weeks.map(week => (
+            <Table key={week.id}>
+              <thead>
+                <tr>
+                  <th>Week {week.week}</th>
+                  {week.days.map(day => (
+                    <th key={day.id}>{weekdays[day.day]}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Homework</td>
+                  {week.days.map(day => (
+                    <td key={day.id}>
+                      <Input
+                        type="checkbox"
+                        name={`homework_${weekdays[day.day]}`}
+                        checked={
+                          this.state.homework[
+                            `homework_${day.weekId}_${weekdays[day.day]}`
+                          ]
+                        }
+                        onChange={this.toggleHomework}
+                      />
+                    </td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>Attendance</td>
+                  {week.days.map(day => (
+                    <td key={day.id}>
+                      <Input
+                        type="checkbox"
+                        name={`homework_${weekdays[day.day]}`}
+                        checked={
+                          this.state.homework[
+                            `attendance_${day.weekId}_${weekdays[day.day]}`
+                          ]
+                        }
+                        onChange={this.toggleAttendance}
+                      />
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+            </Table>
+          ))}
       </div>
     );
   }
