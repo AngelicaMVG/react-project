@@ -1,40 +1,44 @@
-import React, { Component } from "react";
-import req from "superagent";
+import React, { Component } from 'react';
+import req from 'superagent';
 // import TableExampleSimple from "../shared/table/index.js";
-import glamorous from "glamorous";
-import { colors } from "../shared/colors";
+import glamorous from 'glamorous';
+import { colors } from '../shared/colors';
+import { Link } from 'react-router-dom';
+import CreateWeek from './CreateWeek';
+import CreateWeekElements from './CreateWeekElements';
+import WeeksList from '../weeks/weeksList';
 
 const weekdays = {
-  1: "Lunes",
-  2: "Martes",
-  3: "Miercoles",
-  4: "Jueves",
-  5: "Viernes"
+  1: 'Lunes',
+  2: 'Martes',
+  3: 'Miercoles',
+  4: 'Jueves',
+  5: 'Viernes'
 };
 
 const Input = glamorous.input({
-  marginTop: "20px",
-  width: "30px",
-  height: "30px",
-  border: "1px solid black",
-  outline: "none"
+  marginTop: '20px',
+  width: '30px',
+  height: '30px',
+  border: '1px solid black',
+  outline: 'none'
 });
 
 const Table = glamorous.table({
-  width: "70%",
-  margin: "0px auto",
-  textAlign: "center",
-  borderBottom: "2px solid black",
-  padding: "20px"
+  width: '70%',
+  margin: '0px auto',
+  textAlign: 'center',
+  borderBottom: '2px solid black',
+  padding: '20px'
 });
 
 const CardDetail = glamorous.div(
   {
     borderRadius: 4,
-    height: "200px",
+    height: '200px',
     padding: 20,
-    textAlign: "center",
-    alignItems: "center"
+    textAlign: 'center',
+    alignItems: 'center'
   },
   ({ color }) => ({
     backgroundColor: colors[color] || colors.white
@@ -76,16 +80,17 @@ class StudentDetail extends Component {
   };
 
   render() {
-    console.log(this.state);
+    console.log(this.state.student.weeks);
+
     return (
       <div>
-        <CardDetail>
+        <CardDetail params={this.props.match.params}>
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-around",
-              width: "40%",
-              margin: "0px auto",
+              display: 'flex',
+              justifyContent: 'space-around',
+              width: '40%',
+              margin: '0px auto',
               padding: 20
             }}
           >
@@ -100,16 +105,36 @@ class StudentDetail extends Component {
               </div>
             </div>
           </div>
+
+          <div style={{ position: 'relative' }}>
+            <Link
+              to="/"
+              style={{
+                width: '50px',
+                background: 'red',
+                textDecoration: 'none',
+                padding: '20px',
+                marginTop: '5%',
+                color: 'white',
+                position: 'absolute',
+                top: '0px',
+                right: '5%'
+              }}
+            >
+              Create Week
+            </Link>
+          </div>
         </CardDetail>
+
+        {this.state.student && <WeeksList student={this.state.student.id} />}
+
         {this.state.student.id &&
           this.state.student.weeks.map(week => (
             <Table key={week.id}>
               <thead>
                 <tr>
-                  <th>Week {week.week}</th>
-                  {week.days.map(day => (
-                    <th key={day.id}>{weekdays[day.day]}</th>
-                  ))}
+                  <th>Week {week.id}</th>
+                  {week.days.map(day => <th key={day.id}>{day.dayName}</th>)}
                 </tr>
               </thead>
               <tbody>

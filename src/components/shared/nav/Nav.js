@@ -1,7 +1,7 @@
-import React from 'react'
-import glamorous from 'glamorous'
-import { colors } from '../colors'
-import Logo from '../../../logo.png'
+import React from 'react';
+import glamorous from 'glamorous';
+import { colors } from '../colors';
+import Logo from '../../../logo.png';
 
 const Nav = glamorous.nav({
   backgroundColor: colors.primary,
@@ -11,7 +11,7 @@ const Nav = glamorous.nav({
   alignItems: 'center',
   justifyContent: 'space-between',
   color: colors.white
-})
+});
 
 export default () => {
   return (
@@ -19,5 +19,5 @@ export default () => {
       <img src={Logo} alt="#" width={30} />
       {localStorage.getItem('user')}
     </Nav>
-  )
-}
+  );
+};

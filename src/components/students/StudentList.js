@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from "react";
-import { Card, List, ListItem, Label, Link } from "../shared";
-import req from "superagent";
+import React, { Component, Fragment } from 'react';
+import { Card, List, ListItem, Label, Link } from '../shared';
+import req from 'superagent';
 
 class StudentList extends Component {
   state = {
@@ -8,7 +8,7 @@ class StudentList extends Component {
   };
 
   componentWillMount() {
-    req.get("http://localhost:3001/students").then(response => {
+    req.get('http://localhost:3001/students').then(response => {
       this.setState({
         ...this.state,
         students: [...response.body]
@@ -16,6 +16,7 @@ class StudentList extends Component {
     });
   }
   render() {
+    console.log(this.state.students);
     return (
       <Fragment>
         <h2>Lista de estudiantes CIMI</h2>
@@ -25,12 +26,12 @@ class StudentList extends Component {
               <Link to={`/students/${student.id}`}>
                 <Card>
                   <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
                   >
                     <span>
                       {student.name} {student.lastName}
                     </span>
-                    <Label color={student.weeks.id}>{student.weeks.id}</Label>
+                    {/* <Label color={student.weeks.id}>{student.weeks.id}</Label> */}
                   </div>
                 </Card>
               </Link>
